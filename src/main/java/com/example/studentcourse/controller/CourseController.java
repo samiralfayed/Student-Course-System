@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/courses")
+@CrossOrigin(origins = "*")
 public class CourseController {
 
     @Autowired
@@ -17,6 +18,7 @@ public class CourseController {
 
     @PostMapping
     public Course addCourse(@RequestBody Course course) {
+        course.setId(null); // ensure create mode
         return courseRepo.save(course);
     }
 

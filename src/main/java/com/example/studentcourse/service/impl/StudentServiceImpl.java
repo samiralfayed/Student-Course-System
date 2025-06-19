@@ -8,6 +8,7 @@ import com.example.studentcourse.repository.StudentRepository;
 import com.example.studentcourse.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +24,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student addStudent(Student student) {
+        if (studentRepo.findByEmail(student.getEmail()).isPresent()) {
+            throw new RuntimeException("Email already registered.");
+        }
         return studentRepo.save(student);
     }
 
@@ -32,11 +36,20 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @Transactional
     public void enrollStudentInCourse(Long studentId, Long courseId) {
-        Student student = studentRepo.findById(studentId).orElseThrow();
-        Course course = courseRepo.findById(courseId).orElseThrow();
-        student
-                .getCourses().add(course);
+        Student student = studentRepo.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found with ID: " + studentId));
+        Course course = courseRepo.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course not found with ID: " + courseId));
+        student.getCourses().add(course);
         studentRepo.save(student);
     }
+
+    @Override
+    public void deleteStudentById(Long id) {
+        studentRepo.deleteById(id);
+    }
+
+
 }

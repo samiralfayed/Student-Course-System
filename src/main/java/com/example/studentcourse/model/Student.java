@@ -17,9 +17,15 @@ public class Student {
 
     @NotBlank(message = "Email is required")
     @Email(message = "Email must be valid")
+    @Column(unique = true)
     private String email;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "student_course",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
     private Set<Course> courses = new HashSet<>();
 
     // Getters and setters

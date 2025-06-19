@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/students")
+@CrossOrigin(origins = "*")
 public class StudentController {
 
     @Autowired
@@ -18,13 +19,19 @@ public class StudentController {
 
     @PostMapping
     public Student createStudent(@Valid @RequestBody Student student) {
-        student.setId(null); // force create mode
+        student.setId(null);
         return studentService.addStudent(student);
     }
 
     @GetMapping
     public List<Student> getStudents() {
         return studentService.getAllStudents();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
+        studentService.deleteStudentById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{studentId}/enroll/{courseId}")
