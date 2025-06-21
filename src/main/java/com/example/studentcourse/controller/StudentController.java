@@ -5,8 +5,11 @@ import com.example.studentcourse.model.Course;
 import com.example.studentcourse.model.Student;
 import com.example.studentcourse.repository.CourseRepository;
 import com.example.studentcourse.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +26,7 @@ public class StudentController {
     private CourseRepository courseRepo;
 
     @PostMapping
-    public Student addStudent(@RequestBody StudentRequest request) {
+    public Student addStudent(@Valid @RequestBody StudentRequest request) {
         Student student = new Student();
         student.setName(request.getName());
         student.setEmail(request.getEmail());
@@ -31,9 +34,10 @@ public class StudentController {
         Set<Course> courseSet = new HashSet<>();
         for (Long courseId : request.getCourseIds()) {
             Course course = courseRepo.findById(courseId)
-                    .orElseThrow(() -> new RuntimeException("Course not found with ID: " + courseId));
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "❌ Course not found with ID: " + courseId));
             courseSet.add(course);
         }
+
         student.setCourses(courseSet);
         return studentService.addStudent(student);
     }
@@ -46,5 +50,10 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable Long id) {
         studentService.deleteStudentById(id);
+    }
+
+    @PostMapping("/{studentId}/enroll/{courseId}")
+    public void enrollCourse(@PathVariable Long studentId, @PathVariable Long courseId) {
+        studentService.enrollStudentInCourse(studentId, courseId);
     }
 }
