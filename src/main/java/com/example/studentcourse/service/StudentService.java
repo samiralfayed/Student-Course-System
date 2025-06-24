@@ -8,4 +8,5 @@ public interface StudentService {
     List<Student> getAllStudents();
     void enrollStudentInCourse(Long studentId, Long courseId);
     void deleteStudentById(Long id);
+    void deleteAllStudents();
 }

@@ -19,6 +19,7 @@ import java.util.Set;
 @RequestMapping("/api/students")
 @CrossOrigin(origins = "*")
 public class StudentController {
+
     @Autowired
     private StudentService studentService;
 
@@ -28,6 +29,7 @@ public class StudentController {
     @PostMapping
     public Student addStudent(@Valid @RequestBody StudentRequest request) {
         Student student = new Student();
+        student.setId(null); // using setId explicitly
         student.setName(request.getName());
         student.setEmail(request.getEmail());
 
@@ -50,6 +52,11 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable Long id) {
         studentService.deleteStudentById(id);
+    }
+
+    @DeleteMapping
+    public void deleteAllStudents() {
+        studentService.deleteAllStudents();
     }
 
     @PostMapping("/{studentId}/enroll/{courseId}")

@@ -27,7 +27,9 @@ public class StudentServiceImpl implements StudentService {
         if (studentRepo.findByEmail(student.getEmail()).isPresent()) {
             throw new RuntimeException("Email already registered.");
         }
-        return studentRepo.save(student);
+        Student saved = studentRepo.save(student);
+        System.out.println("✅ Student added with ID: " + saved.getId()); // Using getId()
+        return saved;
     }
 
     @Override
@@ -49,5 +51,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudentById(Long id) {
         studentRepo.deleteById(id);
+    }
+
+    @Override
+    public void deleteAllStudents() {
+        studentRepo.deleteAll();
+        System.out.println("🧹 All students have been deleted.");
     }
 }
