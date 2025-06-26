@@ -15,8 +15,7 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentService {
 
-
-    @Autowired
+   @Autowired
     private StudentRepository studentRepo;
 
     @Autowired
@@ -28,7 +27,7 @@ public class StudentServiceImpl implements StudentService {
             throw new RuntimeException("Email already registered.");
         }
         Student saved = studentRepo.save(student);
-        System.out.println("✅ Student added with ID: " + saved.getId()); // Using getId()
+        System.out.println("✅ Student added with ID: " + saved.getId());
         return saved;
     }
 
@@ -44,8 +43,14 @@ public class StudentServiceImpl implements StudentService {
                 .orElseThrow(() -> new RuntimeException("Student not found with ID: " + studentId));
         Course course = courseRepo.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found with ID: " + courseId));
-        student.getCourses().add(course);
-        studentRepo.save(student);
+
+        // ✅ fix: prevent duplicate enrollment
+        if (!student.getCourses().contains(course)) {
+            student.getCourses().add(course);
+            studentRepo.save(student);
+        } else {
+            System.out.println("ℹ️ Student already enrolled in this course.");
+        }
     }
 
     @Override
@@ -57,5 +62,18 @@ public class StudentServiceImpl implements StudentService {
     public void deleteAllStudents() {
         studentRepo.deleteAll();
         System.out.println("🧹 All students have been deleted.");
+    }
+
+
+    ////
+
+    @Override
+    public List<Student> searchStudentsByName(String keyword) {
+        return studentRepo.findByNameContainingIgnoreCase(keyword);
+    }
+
+    @Override
+    public List<Student> getStudentsByCourseId(Long courseId) {
+        return studentRepo.findByCourses_Id(courseId);
     }
 }

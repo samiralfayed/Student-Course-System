@@ -9,4 +9,9 @@ public interface StudentService {
     void enrollStudentInCourse(Long studentId, Long courseId);
     void deleteStudentById(Long id);
     void deleteAllStudents();
+
+
+    ////
+    List<Student> searchStudentsByName(String keyword);
+    List<Student> getStudentsByCourseId(Long courseId);
 }

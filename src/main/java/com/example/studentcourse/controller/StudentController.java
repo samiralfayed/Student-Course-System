@@ -63,4 +63,16 @@ public class StudentController {
     public void enrollCourse(@PathVariable Long studentId, @PathVariable Long courseId) {
         studentService.enrollStudentInCourse(studentId, courseId);
     }
+
+    ////
+
+    @GetMapping("/search")
+    public List<Student> searchStudentsByName(@RequestParam String keyword) {
+        return studentService.searchStudentsByName(keyword);
+    }
+
+    @GetMapping("/course/{courseId}")
+    public List<Student> getStudentsByCourse(@PathVariable Long courseId) {
+        return studentService.getStudentsByCourseId(courseId);
+    }
 }

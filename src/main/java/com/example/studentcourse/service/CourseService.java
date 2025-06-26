@@ -12,4 +12,9 @@ public interface CourseService {
     Course updateCourse(Long id, Course updatedCourse);
     void deleteCourseById(Long id);
     void deleteAllCourses();
+
+
+    ////
+    List<Course> searchCoursesByTitle(String keyword);
+    List<Course> getCoursesByStudentId(Long studentId);
 }

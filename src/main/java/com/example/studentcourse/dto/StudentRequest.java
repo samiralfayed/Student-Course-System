@@ -20,13 +20,31 @@ public class StudentRequest {
     @NotNull(message = "Courses cannot be null")
     private Set<Long> courseIds;
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    //  Public no-arg constructor for deserialization
+    public StudentRequest() {
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getName() {
+        return name;
+    }
 
-    public Set<Long> getCourseIds() { return courseIds; }
-    public void setCourseIds(Set<Long> courseIds) { this.courseIds = courseIds; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Set<Long> getCourseIds() {
+        return courseIds;
+    }
+
+    public void setCourseIds(Set<Long> courseIds) {
+        this.courseIds = courseIds;
+    }
 }

@@ -41,7 +41,7 @@ public class CourseController {
 
         course.setStudents(students);
         Course saved = courseService.addCourse(course);
-        System.out.println("✅ Course created with ID: " + saved.getId()); // ✅ Uses getId()
+        System.out.println("✅ Course created with ID: " + saved.getId());
         return saved;
     }
 
@@ -49,7 +49,7 @@ public class CourseController {
     public List<Course> getAllCourses() {
         List<Course> courses = courseService.getAllCourses();
         for (Course course : courses) {
-            System.out.println("📚 Found Course ID: " + course.getId()); // ✅ Uses getId()
+            System.out.println("📚 Found Course ID: " + course.getId());
         }
         return courses;
     }
@@ -62,7 +62,7 @@ public class CourseController {
     @PutMapping("/{id}")
     public Course updateCourse(@PathVariable Long id, @RequestBody CourseRequest request) {
         Course existing = courseService.getCourseById(id);
-        System.out.println("🛠️ Updating Course ID: " + existing.getId()); // ✅ Uses getId()
+        System.out.println("🛠️ Updating Course ID: " + existing.getId());
 
         existing.setTitle(request.getTitle());
         existing.setDescription(request.getDescription());
@@ -94,5 +94,17 @@ public class CourseController {
     public Set<Student> getEnrolledStudents(@PathVariable Long id) {
         Course course = courseService.getCourseById(id);
         return course.getStudents();
+    }
+
+    ///
+
+    @GetMapping("/search")
+    public List<Course> searchCoursesByTitle(@RequestParam String keyword) {
+        return courseService.searchCoursesByTitle(keyword);
+    }
+
+    @GetMapping("/student/{studentId}")
+    public List<Course> getCoursesByStudent(@PathVariable Long studentId) {
+        return courseService.getCoursesByStudentId(studentId);
     }
 }

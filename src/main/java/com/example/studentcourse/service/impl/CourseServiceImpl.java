@@ -38,6 +38,7 @@ public class CourseServiceImpl implements CourseService {
         Course existing = getCourseById(id);
         existing.setTitle(updatedCourse.getTitle());
         existing.setDescription(updatedCourse.getDescription());
+        existing.setStudents(updatedCourse.getStudents()); // ✅ fix: update students as well
         return courseRepo.save(existing);
     }
 
@@ -54,4 +55,17 @@ public class CourseServiceImpl implements CourseService {
         courseRepo.deleteAll();
     }
 
+
+
+    ///
+
+    @Override
+    public List<Course> searchCoursesByTitle(String keyword) {
+        return courseRepo.findByTitleContainingIgnoreCase(keyword);
+    }
+
+    @Override
+    public List<Course> getCoursesByStudentId(Long studentId) {
+        return courseRepo.findByStudents_Id(studentId);
+    }
 }

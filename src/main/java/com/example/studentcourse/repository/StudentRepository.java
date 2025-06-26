@@ -10,12 +10,12 @@ import java.util.Optional;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long>  {
 
-    // ✅ Check if a student with a given email exists (used to prevent duplicates)
+    // Check if a student with a given email exists (used to prevent duplicates)
     Optional<Student> findByEmail(String email);
 
-    // 🆕 Optional: Find students whose name contains a substring (useful for search)
+    // Find students whose name contains a substring (useful for search)
     List<Student> findByNameContainingIgnoreCase(String keyword);
 
-    // 🆕 Optional: List all students enrolled in a specific course
+    // List all students enrolled in a specific course
     List<Student> findByCourses_Id(Long courseId);
 }

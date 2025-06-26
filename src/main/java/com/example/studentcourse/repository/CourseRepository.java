@@ -9,9 +9,9 @@ import java.util.List;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
-    // 🆕 Optional: Find courses by title containing a keyword (search)
+    // Find courses by title containing a keyword (search)
     List<Course> findByTitleContainingIgnoreCase(String keyword);
 
-    // 🆕 Optional: Get all courses a specific student is enrolled in
+    // Get all courses a specific student is enrolled in
     List<Course> findByStudents_Id(Long studentId);
 }
