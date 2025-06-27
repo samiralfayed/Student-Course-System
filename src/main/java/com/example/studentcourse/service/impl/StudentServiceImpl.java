@@ -11,11 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
-   @Autowired
+    @Autowired
     private StudentRepository studentRepo;
 
     @Autowired
@@ -23,12 +24,20 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student addStudent(Student student) {
-        if (studentRepo.findByEmail(student.getEmail()).isPresent()) {
+        Optional<Student> existing = studentRepo.findByEmail(student.getEmail());
+        if (existing.isPresent()) {
             throw new RuntimeException("Email already registered.");
         }
-        Student saved = studentRepo.save(student);
-        System.out.println("✅ Student added with ID: " + saved.getId());
-        return saved;
+        return studentRepo.save(student);
+    }
+
+    @Override
+    public Student updateStudent(Student student) {
+        Optional<Student> existing = studentRepo.findByEmail(student.getEmail());
+        if (existing.isPresent() && !existing.get().getId().equals(student.getId())) {
+            throw new RuntimeException("Email already registered.");
+        }
+        return studentRepo.save(student);
     }
 
     @Override
@@ -44,12 +53,9 @@ public class StudentServiceImpl implements StudentService {
         Course course = courseRepo.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found with ID: " + courseId));
 
-        // ✅ fix: prevent duplicate enrollment
         if (!student.getCourses().contains(course)) {
             student.getCourses().add(course);
             studentRepo.save(student);
-        } else {
-            System.out.println("ℹ️ Student already enrolled in this course.");
         }
     }
 
@@ -61,11 +67,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteAllStudents() {
         studentRepo.deleteAll();
-        System.out.println("🧹 All students have been deleted.");
     }
-
-
-    ////
 
     @Override
     public List<Student> searchStudentsByName(String keyword) {
@@ -75,5 +77,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> getStudentsByCourseId(Long courseId) {
         return studentRepo.findByCourses_Id(courseId);
+    }
+
+    @Override
+    public Student getStudentById(Long id) {
+        return studentRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found with ID: " + id));
     }
 }

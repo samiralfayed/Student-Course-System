@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Course Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="studentcourse.css">
+    <script src="studentcourse.js" defer></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+<div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6 text-center">Student Course Management</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Students Section -->
+        <div class="bg-white shadow rounded p-4">
+            <h2 class="text-xl font-semibold mb-4">Students</h2>
+            <ul id="student-list"></ul>
+            <form id="student-form" class="mt-4 space-y-2">
+                <input type="text" id="student-name" placeholder="Name" class="w-full border px-2 py-1 rounded" required />
+                <input type="email" id="student-email" placeholder="Email" class="w-full border px-2 py-1 rounded" required />
+                <input type="text" id="student-courses" placeholder="Course IDs (comma-separated)" class="w-full border px-2 py-1 rounded" required />
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Add Student</button>
+            </form>
+        </div>
+
+        <!-- Courses Section -->
+        <div class="bg-white shadow rounded p-4">
+            <h2 class="text-xl font-semibold mb-4">Courses</h2>
+            <ul id="course-list"></ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

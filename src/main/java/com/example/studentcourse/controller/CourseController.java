@@ -6,6 +6,7 @@ import com.example.studentcourse.model.Course;
 import com.example.studentcourse.model.Student;
 import com.example.studentcourse.repository.StudentRepository;
 import com.example.studentcourse.service.CourseService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,10 +14,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+
 @RestController
 @RequestMapping("/api/courses")
 @CrossOrigin(origins = "*")
 public class CourseController {
+
+ private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
 
     @Autowired
     private CourseService courseService;
@@ -41,7 +46,7 @@ public class CourseController {
 
         course.setStudents(students);
         Course saved = courseService.addCourse(course);
-        System.out.println("✅ Course created with ID: " + saved.getId());
+        logger.info("✅ Course created with ID: {}", saved.getId());
         return saved;
     }
 
@@ -49,7 +54,7 @@ public class CourseController {
     public List<Course> getAllCourses() {
         List<Course> courses = courseService.getAllCourses();
         for (Course course : courses) {
-            System.out.println("📚 Found Course ID: " + course.getId());
+            logger.info("📚 Found Course ID: {}", course.getId());
         }
         return courses;
     }
@@ -62,7 +67,7 @@ public class CourseController {
     @PutMapping("/{id}")
     public Course updateCourse(@PathVariable Long id, @RequestBody CourseRequest request) {
         Course existing = courseService.getCourseById(id);
-        System.out.println("🛠️ Updating Course ID: " + existing.getId());
+        logger.info("🛠️ Updating Course ID: {}", existing.getId());
 
         existing.setTitle(request.getTitle());
         existing.setDescription(request.getDescription());
@@ -95,8 +100,6 @@ public class CourseController {
         Course course = courseService.getCourseById(id);
         return course.getStudents();
     }
-
-    ///
 
     @GetMapping("/search")
     public List<Course> searchCoursesByTitle(@RequestParam String keyword) {
