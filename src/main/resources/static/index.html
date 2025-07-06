@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student-Course Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer></script>
+    <script src="js/student.js" defer></script>
+    <script src="js/course.js" defer></script>
+</head>
+<body class="bg-gray-100 font-sans">
+<div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r shadow-md">
+        <div class="p-4 text-2xl font-bold text-blue-600">Dashboard</div>
+        <nav class="mt-6">
+            <ul>
+                <li><a href="#students" class="block p-4 hover:bg-blue-100">Students</a></li>
+                <li><a href="#courses" class="block p-4 hover:bg-blue-100">Courses</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 overflow-auto">
+        <h1 class="text-3xl font-bold mb-6">Student-Course Management</h1>
+
+        <!-- Toolbar -->
+        <div class="flex justify-between items-center mb-4">
+            <div class="flex gap-2">
+                <input type="text" id="search-bar" placeholder="Search..." class="border px-2 py-1 rounded w-60">
+                <select id="filter-dropdown" class="border px-2 py-1 rounded">
+                    <option value="">All</option>
+                    <option value="students">Students</option>
+                    <option value="courses">Courses</option>
+                </select>
+            </div>
+            <div class="flex gap-2">
+                <button id="add-student-btn" class="bg-blue-600 text-white px-4 py-2 rounded">+ Add Student</button>
+                <button id="add-course-btn" class="bg-green-600 text-white px-4 py-2 rounded">+ Add Course</button>
+            </div>
+        </div>
+
+        <!-- Tables -->
+        <section id="students-section">
+            <h2 class="text-xl font-semibold mb-2">Students</h2>
+            <div id="students-table" class="bg-white rounded shadow overflow-x-auto"></div>
+        </section>
+
+        <section id="courses-section" class="hidden">
+            <h2 class="text-xl font-semibold mb-2">Courses</h2>
+            <div id="courses-table" class="bg-white rounded shadow overflow-x-auto"></div>
+        </section>
+    </main>
+</div>
+
+<!-- Modal Overlay -->
+<div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+    <div class="bg-white p-6 rounded shadow-lg w-96 relative">
+        <h3 id="modal-title" class="text-lg font-semibold mb-4">Add</h3>
+        <form id="modal-form" class="space-y-2">
+            <input type="text" id="modal-name" class="w-full border px-2 py-1 rounded" placeholder="Name">
+            <input type="email" id="modal-email" class="w-full border px-2 py-1 rounded" placeholder="Email">
+            <input type="text" id="modal-courses" class="w-full border px-2 py-1 rounded" placeholder="Course IDs (comma-separated)">
+            <div class="flex justify-end">
+                <button type="button" id="modal-cancel" class="mr-2 px-4 py-1 border rounded">Cancel</button>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-1 rounded">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

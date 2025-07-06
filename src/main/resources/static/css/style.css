@@ -1,0 +1,26 @@
+/* css/style.css */
+
+/* Ensure modal is hidden by default if Tailwind doesn't load */
+.hidden {
+    display: none !important;
+}
+
+/* Optional: Smooth modal fade-in */
+#modal-overlay {
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

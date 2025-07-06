@@ -1,8 +1,0 @@
-/* Tailwind handles most styling */
-ul li {
-    transition: background-color 0.3s ease;
-}
-
-ul li:hover {
-    background-color: #f1f5f9;
-}
