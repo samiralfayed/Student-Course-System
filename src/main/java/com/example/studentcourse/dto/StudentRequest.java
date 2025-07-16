@@ -17,11 +17,16 @@ public class StudentRequest {
     @Email(message = "Email must be valid")
     private String email;
 
-    @NotNull(message = "Courses cannot be null")
+    @NotNull(message = "Course IDs must not be null")
     private Set<Long> courseIds;
 
-    //  Public no-arg constructor for deserialization
     public StudentRequest() {
+    }
+
+    public StudentRequest(String name, String email, Set<Long> courseIds) {
+        this.name = name;
+        this.email = email;
+        this.courseIds = courseIds;
     }
 
     public String getName() {

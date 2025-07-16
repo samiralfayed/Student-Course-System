@@ -1,6 +1,4 @@
-/* css/style.css */
-
-/* Ensure modal is hidden by default if Tailwind doesn't load */
+/* Ensure modal is hidden by default */
 .hidden {
     display: none !important;
 }
