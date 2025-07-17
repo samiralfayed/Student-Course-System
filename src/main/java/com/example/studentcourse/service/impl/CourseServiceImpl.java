@@ -56,9 +56,6 @@ public class CourseServiceImpl implements CourseService {
     }
 
 
-
-    ///
-
     @Override
     public List<Course> searchCoursesByTitle(String keyword) {
         return courseRepo.findByTitleContainingIgnoreCase(keyword);

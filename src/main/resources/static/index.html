@@ -26,8 +26,8 @@
         <h1 class="text-3xl font-bold mb-6">Student-Course Management</h1>
         <div class="flex justify-between items-center mb-4">
             <div class="flex gap-2">
-                <input type="text" id="search-bar" placeholder="Search..." class="border px-2 py-1 rounded w-60">
-                <select id="filter-dropdown" class="border px-2 py-1 rounded">
+                <label for="search-bar"></label><input type="text" id="search-bar" placeholder="Search..." class="border px-2 py-1 rounded w-60">
+                <label for="filter-dropdown"></label><select id="filter-dropdown" class="border px-2 py-1 rounded">
                     <option value="">All</option>
                     <option value="students">Students</option>
                     <option value="courses">Courses</option>
@@ -56,10 +56,10 @@
     <div class="bg-white p-6 rounded shadow-lg w-96 relative">
         <h3 id="modal-title" class="text-lg font-semibold mb-4">Add</h3>
         <form id="modal-form" class="space-y-2">
-            <input type="text" id="modal-name" class="w-full border px-2 py-1 rounded" placeholder="Name">
-            <input type="email" id="modal-email" class="w-full border px-2 py-1 rounded" placeholder="Email">
-            <input type="text" id="modal-courses" class="w-full border px-2 py-1 rounded" placeholder="Course IDs (comma-separated)">
-            <input type="text" id="modal-description" class="w-full border px-2 py-1 rounded hidden" placeholder="Course Description">
+            <label for="modal-name"></label><input type="text" id="modal-name" class="w-full border px-2 py-1 rounded" placeholder="Name">
+            <label for="modal-email"></label><input type="email" id="modal-email" class="w-full border px-2 py-1 rounded" placeholder="Email">
+            <label for="modal-courses"></label><input type="text" id="modal-courses" class="w-full border px-2 py-1 rounded" placeholder="Course IDs (comma-separated)">
+            <label for="modal-description"></label><input type="text" id="modal-description" class="w-full border px-2 py-1 rounded hidden" placeholder="Course Description">
             <div id="form-error" class="text-red-500 text-sm hidden"></div>
             <div class="flex justify-end">
                 <button type="button" id="modal-cancel" class="mr-2 px-4 py-1 border rounded">Cancel</button>

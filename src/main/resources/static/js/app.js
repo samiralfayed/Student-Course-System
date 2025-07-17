@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!res.ok) throw new Error(result.message || result);
 
             modalOverlay.classList.add("hidden");
-            currentMode === "student" ? fetchStudents() : fetchCourses();
+            currentMode === "student" ? await fetchStudents() : await fetchCourses();
         } catch (err) {
             errorBox.textContent = err.message;
             errorBox.classList.remove("hidden");

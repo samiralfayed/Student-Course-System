@@ -13,8 +13,6 @@ public interface CourseService {
     void deleteCourseById(Long id);
     void deleteAllCourses();
 
-
-    ////
     List<Course> searchCoursesByTitle(String keyword);
     List<Course> getCoursesByStudentId(Long studentId);
 }
